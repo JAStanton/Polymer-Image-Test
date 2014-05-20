@@ -10,6 +10,9 @@ Polymer('fb-image-manager', {
     this.staging_.push({name:name,src:src});
     this.async(this.preload_);
   },
+  getImage: function(id) {
+    return this.complete[id];
+  },
   preload_: function() {
     // This could potentially cause a bug if I preload an image then on async
     // preload another. That would suck.
@@ -31,7 +34,7 @@ Polymer('fb-image-manager', {
         if (loaded === count) {
           this.state = 'ready';
         }
-        this.fire("imageLoaded", {image: newImgage});
+        this.fire(image.name + 'Loaded', { image: newImgage });
       }.bind(this);
 
       // Failed

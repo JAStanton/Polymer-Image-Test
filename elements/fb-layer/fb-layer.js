@@ -1,11 +1,21 @@
 Polymer('fb-layer', {
   width: 0,
   height: 0,
+  x: 0,
+  y: 0,
+  sx: 0,
+  sy: 0,
+  swidth: 0,
+  sheight: 0,
   canvas: {
     width: 0,
     height: 0
   },
   rotationalDegree: 0,
+  anchor: {
+    x: 0,
+    y: 0
+  },
   ready: function() {
     this.position = new FbMathPoint(),
     this.center = new FbMathPoint(),
@@ -33,11 +43,25 @@ Polymer('fb-layer', {
   draw: function() {
     this.clear();
     this.layerManager.forEach(function(layer) {
-      this.context.drawImage(layer.canvas, layer.x, layer.y);
+      if (layer.canvas) {
+        try {
+          this.context.drawImage(layer.canvas, layer.x, layer.y);
+        } catch (e) {
+          console.warn("layer: [", layer.id, "] failed to render", e);
+        }
+      } else {
+        console.warn(
+            "layer: [", layer.id, "] has no canvas. Most likely super was " +
+            "never called on ready");
+      }
     }.bind(this));
   },
   animate: function() {
     requestAnimationFrame(this.animate.bind(this));
     this.draw();
+  },
+  setAnchor: function(x, y) {
+    this.anchor.x = x;
+    this.anchor.y = y;
   },
 });
