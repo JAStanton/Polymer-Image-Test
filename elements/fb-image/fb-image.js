@@ -1,7 +1,11 @@
 Polymer('fb-image', {
-  publish: {
-    image: new Image()
+  observe: {
+    'id': 'idChanged'
   },
+  publish: {
+    image: new Image(),
+  },
+  repetition: 'no-repeat',
   ready: function() {
     this.imageManager_ = document.getElementById('fb-image-manager');
     this.super();
@@ -20,13 +24,15 @@ Polymer('fb-image', {
     }
   },
   setDimensions_: function() {
-    this.width = this.image.width;
-    this.height = this.image.height;
+    this.width = this.width || this.image.width;
+    this.height = this.height || this.image.height;
   },
   draw: function() {
     this.super();
     if (this.image) {
-      this.context.drawImage(this.image, 0, 0, this.width, this.height);
+      var pattern = this.context.createPattern(this.image, this.repetition);
+      this.context.fillStyle = pattern;
+      this.context.fillRect(0, 0, this.width, this.height);
     }
   }
 });

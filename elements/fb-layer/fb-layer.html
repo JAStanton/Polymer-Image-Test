@@ -1,9 +1,10 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../fb-math/fb-math.html">
-<link rel="import" href="../fb-layer-manager/fb-layer-manager.html">
-<polymer-element name="fb-layer">
+<polymer-element name="fb-layer" constructor="FbLayer">
   <template>
-    <fb-layer-manager id="fb-layer-manager"></fb-layer-manager>
+    <style>
+      :host { position: absolute; }
+    </style>
     <canvas id="canvas"></canvas>
   </template>
   <script type="text/javascript" src="fb-layer.js"></script>

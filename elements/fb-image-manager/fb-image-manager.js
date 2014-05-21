@@ -7,7 +7,7 @@ Polymer('fb-image-manager', {
     this.complete = {};
   },
   preload: function(name, src) {
-    this.staging_.push({name:name,src:src});
+    this.staging_.push({ name: name, src: src });
     this.async(this.preload_);
   },
   getImage: function(id) {
