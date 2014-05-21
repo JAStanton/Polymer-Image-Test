@@ -51,6 +51,6 @@ Polymer('fb-main', {
   mouseUpdate_: function() {
     var angle = this.gun.position.getAngleTo(this.mouse_.position);
     this.gun.rotate = (angle * (180 / Math.PI) - 180) + "deg";
-    this.trajectory.gunAngle = angle * -1;
+    this.trajectory.gunAngle = angle * -1 - Math.PI;
   }
 });
